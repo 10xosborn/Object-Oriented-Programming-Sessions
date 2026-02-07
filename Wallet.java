@@ -21,11 +21,11 @@ public class Wallet {
     }
 
     public double borrowMoney(double amountToBorrow){
-        if(amountToBorrow < 0){
-            throw new IllegalArgumentException("Amount to borrow cannot be negative");
+        if(amountToBorrow < 0 || amountToBorrow > money){
+            throw new IllegalArgumentException("Amount to borrow cannot be negative or greater than money in wallet");
         }
 
-        this.money += amountToBorrow;
+        this.money -= amountToBorrow;
         return this.getMoney();
     }
 
@@ -38,6 +38,11 @@ public class Wallet {
 
         this.money += amount;
     }
+
+    public double checkBalance(){
+        return this.getMoney();
+    }
+
     //Algorithm for spend money
     /*
     1.Write money spendMoney method
@@ -48,22 +53,25 @@ public class Wallet {
 
     public double spendMoney(double amount){
 
-        if(money == 0 || amount > money){
-            throw new IllegalArgumentException("You cannot spend money");
+        if(amount < 0){
+            throw new IllegalArgumentException("Amount to spend cannot be negative");
+        } else {
+            if(money == 0 || amount > money){
+                throw new IllegalArgumentException("You do not have enough money to spend");
+            } else {
+                this.money -= amount;
+                return this.getMoney();
+            }
         }
-
-        this.money -= amount;
-        return this.getMoney();
     }
 
     public static void main(String[] args) {
-        Wallet walletObject = new Wallet(200);
-        walletObject.spendMoney(-2);
-        walletObject.addMoney(44);
-        System.out.println("Amount added is: GHS" + walletObject.getMoney());
-        System.out.println("Your balance is: GHS " + walletObject.getMoney());
+        Wallet walletObject = new Wallet(20);
+        walletObject.spendMoney(-4);
+        // walletObject.borrowMoney(20);
+        // walletObject.addMoney(44);
+        // System.out.println("Amount added is: GHS" + walletObject.getMoney());
+        System.out.println("Your balance is: GHS " + walletObject.checkBalance());
 
     }
-
-
 }

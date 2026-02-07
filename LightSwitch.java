@@ -26,8 +26,8 @@ public class LightSwitch{
     }
 
     public static void main(String[] args) {
-        LightSwitch lightSwitchObject = new LightSwitch(false);
-        System.out.println(lightSwitchObject.turnOn());
+        LightSwitch lightSwitchObject = new LightSwitch(true);
         System.out.println(lightSwitchObject.isLightOn());
+        System.out.println(lightSwitchObject.turnOff());
     }
 }
